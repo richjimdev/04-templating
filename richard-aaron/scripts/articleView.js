@@ -5,7 +5,7 @@ let articleView = {};
 // DONE ** TODO: Where possible, refactor methods into arrow functions, including the document.ready() method at the bottom.
 
 // COMMENT: How do arrow functions affect the context of "this"? How did you determine if a function could be refactored?
-// PUT YOUR RESPONSE HERE
+// Arrow functions never work with "this". We determined we could refactor it to an arrow function by checking if it had "this" in it. If it was an event we still refactored to an arrow function because we could replace "this" with e.target or e.currentTarget.
 
 articleView.populateFilters = () => {
   $('article').each(function() {
