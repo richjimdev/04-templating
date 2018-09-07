@@ -2,7 +2,7 @@
 
 let articleView = {};
 
-// TODO: Where possible, refactor methods into arrow functions, including the document.ready() method at the bottom.
+// DONE ** TODO: Where possible, refactor methods into arrow functions, including the document.ready() method at the bottom.
 
 // COMMENT: How do arrow functions affect the context of "this"? How did you determine if a function could be refactored?
 // PUT YOUR RESPONSE HERE
@@ -27,10 +27,10 @@ articleView.populateFilters = () => {
 };
 
 articleView.handleAuthorFilter = () => {
-  $('#author-filter').on('change', function() {
-    if ($(this).val()) {
+  $('#author-filter').on('change', e => {
+    if ($(e.target).val()) {
       $('article').hide();
-      $(`article[data-author="${$(this).val()}"]`).fadeIn();
+      $(`article[data-author="${$(e.target).val()}"]`).fadeIn();
     } else {
       $('article').fadeIn();
       $('article.template').hide();
@@ -40,10 +40,10 @@ articleView.handleAuthorFilter = () => {
 };
 
 articleView.handleCategoryFilter = () => {
-  $('#category-filter').on('change', function() {
-    if ($(this).val()) {
+  $('#category-filter').on('change', e => {
+    if ($(e.target).val()) {
       $('article').hide();
-      $(`article[data-category="${$(this).val()}"]`).fadeIn();
+      $(`article[data-category="${$(e.target).val()}"]`).fadeIn();
     } else {
       $('article').fadeIn();
       $('article.template').hide();
@@ -53,7 +53,7 @@ articleView.handleCategoryFilter = () => {
 };
 
 articleView.handleMainNav = () => {
-  $('nav').on('click', '.tab', (e) => {
+  $('nav').on('click', '.tab', e => {
     e.preventDefault();
     $('.tab-content').hide();
     $(`#${$(e.currentTarget).data('content')}`).fadeIn();
@@ -64,25 +64,25 @@ articleView.handleMainNav = () => {
 
 articleView.setTeasers = () => {
   $('.article-body *:nth-of-type(n+2)').hide();
-  $('article').on('click', 'a.read-on', function(e) {
+  $('article').on('click', 'a.read-on', e => {
     e.preventDefault();
-    if ($(this).text() === 'Read on →') {
-      $(this).parent().find('*').fadeIn();
-      $(this).html('Show Less &larr;');
+    if ($(e.currentTarget).text() === 'Read on →') {
+      $(e.currentTarget).parent().find('*').fadeIn();
+      $(e.currentTarget).html('Show Less &larr;');
     } else {
       $('body').animate({
-        scrollTop: ($(this).parent().offset().top)
+        scrollTop: ($(e.currentTarget).parent().offset().top)
       },200);
-      $(this).html('Read on &rarr;');
-      $(this).parent().find('.article-body *:nth-of-type(n+2)').hide();
+      $(e.currentTarget).html('Read on &rarr;');
+      $(e.currentTarget).parent().find('.article-body *:nth-of-type(n+2)').hide();
     }
   });
 };
 
-$(document).ready(function() {
+$(document).ready(() => {
   articleView.populateFilters();
   articleView.handleCategoryFilter();
   articleView.handleAuthorFilter();
   articleView.handleMainNav();
   articleView.setTeasers();
-})
+});
